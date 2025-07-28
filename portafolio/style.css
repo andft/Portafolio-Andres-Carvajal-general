@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    font-family: Arial;
+    color: white;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    min-height: 100vh;
+    background: linear-gradient(
+        #b84a4a,
+        #744530,
+        #684b0b
+    )  
+}
+
+#container-general{
+    width: 80%;
+    
+    .container-informacion{
+        display: grid;
+        row-gap: 15px;
+        padding-bottom: 15px;
+
+        .nombre{
+            background-color: black;
+            padding: 10px 0;
+            border-radius: 14px;
+            text-align: center;
+            font-size: clamp(35px, 2vw, 50px);
+            line-height: 0.9;
+        }
+        .redes{
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .quiensoy{
+            background-color: black;
+            padding: 20px;
+            border-radius: 14px;
+            font-size: clamp(20px, 2vw, 50px);
+        }
+    }
+
+    .container-paginas{
+        display: grid;
+        justify-content: center;
+        row-gap: 15px;
+        .titulo{
+            text-align: center;
+        }
+        hr {
+            border: none;
+            height: 3px;
+            background-color: rgb(255, 90, 0);
+        }
+        .paginas{
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+
+            .decoracion-img{
+                padding: 10px 0;
+                border: 2px solid rgb(255, 90, 0);
+                img{
+                    border-top: 2px solid rgb(255, 90, 0);
+                    border-bottom: 2px solid rgb(255, 90, 0);
+                }
+            }
+        }
+    }
+}
