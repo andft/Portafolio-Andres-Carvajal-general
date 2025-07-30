@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./src/style/main.css">
+    <title>Calculadora</title>
+</head>
+
+<body>
+    <main>
+        <header>
+            <h1>CALCULADORA</h1>
+            <p>Ingrese los numeros a sumar</p>
+        </header>
+        <section>
+            <p id="resultado">No se ha realizado la operación...</p>
+            <div>
+                <label for="input1">
+                    Numero 1
+                    <input type="number" placeholder="Ingrese el primer número" id="input1" min="0">
+                </label>
+                <label for="input2">
+                    Numero 2
+                    <input type="number" placeholder="Ingrese el segundo número" id="input2" min="0">
+                </label>
+                <button type="submit" id="botonResultado">Resultado</button>
+            </div>
+            <div class="operadores">
+                <label for="inputSuma">
+                    <input type="radio" name="operador" id="inputSuma" value="suma" checked >
+                    Suma
+                </label>
+                <label for="inputResta">
+                    <input type="radio" name="operador" id="inputResta" value="resta" >
+                    Resta
+                </label>
+                <label for="inputMultiplicacion">
+                    <input type="radio" name="operador" id="inputMultiplicacion" value="multiplicacion" >
+                    Multiplicación
+                </label>
+                <label for="inputDivision">
+                    <input type="radio" name="operador" id="inputDivision" value="division" >
+                    División
+                </label>
+            </div>
+        </section>
+    </main>
+    <script src="./src/script/main.js" type="module"></script>
+</body>
+
+</html>
