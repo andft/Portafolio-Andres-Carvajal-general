@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: column; gap: 20px; padding: 10px; 
+    box-shadow: 2px 2px 2px 2px gray; ">
+        <h3>Registro de datos</h3>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-formulario">Nuevo
+            Registro</button>
+        <div class="modal fade" id="modal-formulario" tabindex="-1" aria-labelledby="miModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="miModalLabel">Formulario</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body" style="display: flex; flex-wrap: wrap; flex-direction: column; gap: 5px;">
+                        <strong>Nombre:</strong>
+                        <input type="text" name="" id="nombre" placeholder="Digite el nombre">
+                        <strong>Apellidos:</strong>
+                        <input type="text" name="" id="apellidos" placeholder="Digite el apellido">
+                        <strong>Documento:</strong>
+                        <input type="text" name="" id="documento" placeholder="Digite el documento">
+                        <strong>Correo:</strong>
+                        <input type="text" name="" id="correo" placeholder="Digite el correo">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-success" onclick="guardar()">Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Nombres</th>
+                    <th>Apellidos</th>
+                    <th>Documento</th>
+                    <th>Correo</th>
+                </tr>
+            </thead>
+            <tbody id="bodyData">
+
+            </tbody>
+        </table>
+    </div>
+    <script>
+        let datos = []
+        function guardar() {
+            if (document.getElementById("nombre").value == "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Digita tu nombre!",
+                });
+            } else if (document.getElementById("apellidos").value == "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Digita tus apellidos!",
+                });
+            } else if (document.getElementById("documento").value == "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Digita tu numero de documento!",
+                });
+            } else if (document.getElementById("correo").value == "") {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Digita tu correo electronico!",
+                });
+            } else {
+                Swal.fire({
+                    title: "Registro exitoso!",
+                    icon: "success",
+                    draggable: true
+                }).then((result) => {
+                    
+                    if (result.isConfirmed) {
+                        let modal = bootstrap.Modal.getInstance(document.getElementById("modal-formulario"));
+                        modal.hide();
+                    }
+                });
+                let reg = {
+                    nombre: document.getElementById("nombre").value,
+                    apellidos: document.getElementById("apellidos").value,
+                    documento: document.getElementById("documento").value,
+                    correo: document.getElementById("correo").value
+                }
+                datos.push(reg)
+                console.log(datos);
+                document.getElementById("bodyData").innerHTML = ""
+                pintarDatos()
+            }
+        }
+
+
+        function pintarDatos() {
+            datos.forEach((item, i) => {
+                document.getElementById("bodyData").innerHTML += `
+                    <tr>
+                        <td>${item.nombre}</td>    
+                        <td>${item.apellidos}</td>   
+                        <td>${item.documento}</td>   
+                        <td>${item.correo}</td>   
+                    </tr>
+                `
+            })
+        }
+
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
