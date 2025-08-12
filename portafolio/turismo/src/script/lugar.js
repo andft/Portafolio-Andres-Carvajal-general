@@ -32,7 +32,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
       </div>
     </div>
-
-    <a href="index.html" class="boton-volver">⬅ Volver al inicio</a>
+    <div class="container-botonvolver">
+      <a href="index.html" class="boton-volver">⬅ Volver al inicio</a>
+    </div>
   `;
 });
