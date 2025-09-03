@@ -68,7 +68,7 @@ function mostrarReservacion() {
       tr.appendChild(tdNota);
 
       const tdEstado = document.createElement("td");
-      if (!datosReserva.reservacion.estado) {
+      if (!datosReserva.reservacion.estadoTexto) {
         tdEstado.textContent = "Pendiente"
       } else {
         tdEstado.textContent = datosReserva.reservacion.estadoTexto;
@@ -209,64 +209,130 @@ function eliminarReserva(index) {
   });
 }
 
-function editarReserva(index) {
-  let reserva = mesasGuardadas[index]
+function agregarReserva() {
+  let selectMesa = document.getElementById("mesaDisponible");
+  selectMesa.innerHTML = ""; // Limpiar las opciones antes de cargar
 
-  document.getElementById("nombreClienteEditar").value = reserva.reservacion.nombreClienteReserva;
-  document.getElementById("numeroPersonasEditarReserva").value = reserva.reservacion.capacidadPersonas
-  document.getElementById("ocasionEspecialEditar").value = reserva.reservacion.ocasionTexto;
-  document.getElementById("fechaEditar").value = reserva.reservacion.fechaReservacion;
-  document.getElementById("horaEditar").value = reserva.reservacion.horaReservacion;
-  document.getElementById("notasAdicionalesEditar").value = reserva.reservacion.notaAdicionalReserva;
-  document.getElementById("estadoEditar").value = reserva.reservacion.estadoTexto;
+  // Filtrar mesas que estén disponibles
+  let mesasDisponibles = mesasGuardadas.filter(m => m.estado === "Disponible");
 
-  window.editandoIndex = index;
+  if (mesasDisponibles.length === 0) {
+    let option = document.createElement("option");
+    option.value = "";
+    option.textContent = "No hay mesas disponibles";
+    selectMesa.appendChild(option);
+  } else {
+    mesasDisponibles.forEach(mesa => {
+      let option = document.createElement("option");
+      option.value = mesa.numeroMesa;
+      option.textContent = `Mesa #${mesa.numeroMesa} (capacidad: ${mesa.capacidad})`;
+      selectMesa.appendChild(option);
+    });
+  }
 
+  // Abrir el modal
   let modal = bootstrap.Modal.getOrCreateInstance(
-    document.getElementById("modal-editarReserva"));
+    document.getElementById("modal-agregar-reservar")
+  );
   modal.show();
 }
 
-window.addEventListener("DOMContentLoaded", () => {
-  if (localStorage.getItem("mesas")) {
-    mesasGuardadas = JSON.parse(localStorage.getItem("mesas"));
-    mostrarReservacion();
+// 👉 Solo cuando el DOM está listo
+document.addEventListener("DOMContentLoaded", () => {
+  let botonPageReservar = document.getElementById("btn-add-reserva");
+  let botonGuardar = document.getElementById("botonGuardarReserva");
+
+  if (botonPageReservar) {
+    botonPageReservar.addEventListener("click", agregarReserva);
   }
 
-  let botonEditarReserva = document.getElementById("botonGuardarCambiosReserva");
-  botonEditarReserva.addEventListener("click", () => {
-  let index = window.editandoIndex;
+  if (botonGuardar) {
+    botonGuardar.addEventListener("click", () => {
+      let numeroMesa = document.getElementById("mesaDisponible").value;
+      let nombreClienteReserva = document.getElementById("nombreClienteReserva").value;
+      let capacidadPersonas = document.getElementById("numeroPersonasReserva").value;
+      let fechaReservacion = document.getElementById("fechaPageReserva").value;
+      let horaReservacion = document.getElementById("horaPageReserva").value;
+      let ocasionTexto = document.getElementById("ocasionEspecialReserva").value;
+      let notaAdicionalReserva = document.getElementById("notasAdicionalesReserva").value;
 
-  mesasGuardadas[index].reservacion.nombreClienteReserva = document.getElementById("nombreClienteEditar").value;
-  mesasGuardadas[index].reservacion.capacidadPersonas = document.getElementById("numeroPersonasEditarReserva").value
-  mesasGuardadas[index].reservacion.fechaReservacion = document.getElementById("fechaEditar").value
-  mesasGuardadas[index].reservacion.horaReservacion = document.getElementById("horaEditar").value 
-  mesasGuardadas[index].reservacion.ocasionTexto = document.getElementById("ocasionEspecialEditar").value
-  mesasGuardadas[index].reservacion.notaAdicionalReserva = document.getElementById("notasAdicionalesEditar").value
-  mesasGuardadas[index].reservacion.estadoTexto = document.getElementById("estadoEditar").value
+      // Validaciones simples
+      if (!numeroMesa || !nombreClienteReserva || !capacidadPersonas || !fechaReservacion || !horaReservacion) {
+        Swal.fire("Error", "Por favor completa todos los campos obligatorios", "error");
+        return;
+      }
 
-  localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
-  mostrarReservacion(mesasGuardadas);
+      let mesaIndex = mesasGuardadas.findIndex(m => m.numeroMesa == numeroMesa);
 
-  let modal = bootstrap.Modal.getInstance(
-    document.getElementById("modal-editarReserva")
-  );
-  modal.hide();
+      // Crear la reserva
+      mesasGuardadas[mesaIndex] = {
+        ...mesasGuardadas[mesaIndex],
+        estado: "Ocupada",
+        reservacion: {
+          nombreClienteReserva,
+          capacidadPersonas,
+          fechaReservacion,
+          horaReservacion,
+          ocasionTexto,
+          notaAdicionalReserva,
+          estadoTexto: "Pendiente"
+        }
+      };
 
-  let estadoReserva = mesasGuardadas[index].reservacion.estadoTexto
-  if (estadoReserva === "Cancelada" || estadoReserva === "No Show") {
-    mesasGuardadas[index].estado = "Disponible";
-    mesasGuardadas[index].reservacion = {};
-    localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
+      // Guardar en localStorage
+      localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
 
-    mostrarReservacion();
-    Swal.fire("Reserva Eliminada!", "La reserva fue cancelada", "error");
-  } else {
-    Swal.fire({
-    icon: "success",
-    title: "Mesa editada",
-    text: "Los cambios se guardaron correctamente",
-  })
+      // Refrescar la vista
+      mostrarReservacion();
+
+      // Cerrar modal
+      let modal = bootstrap.Modal.getInstance(document.getElementById("modal-agregar-reservar"));
+      modal.hide();
+
+      // Confirmación
+      Swal.fire({
+        icon: "success",
+        title: "Reserva creada",
+        text: `Mesa #${numeroMesa} reservada para ${nombreClienteReserva}`
+      });
+    });
   }
 });
-})  
+
+function editarReserva(index) {
+  let reserva = mesasGuardadas[index].reservacion;
+
+  // Cargar datos en el modal de edición
+  document.getElementById("nombreClienteEditar").value = reserva.nombreClienteReserva;
+  document.getElementById("numeroPersonasEditarReserva").value = reserva.capacidadPersonas;
+  document.getElementById("fechaEditar").value = reserva.fechaReservacion;
+  document.getElementById("horaEditar").value = reserva.horaReservacion;
+  document.getElementById("ocasionEspecialEditar").value = reserva.ocasionTexto;
+  document.getElementById("notasAdicionalesEditar").value = reserva.notaAdicionalReserva || "";
+  document.getElementById("estadoEditar").value = reserva.estadoTexto || "Pendiente";
+
+  // Mostrar modal de edición
+  let modalEditar = new bootstrap.Modal(document.getElementById("modal-editarReserva"));
+  modalEditar.show();
+
+  // Guardar cambios cuando den click en el botón
+  document.getElementById("botonGuardarCambiosReserva").onclick = () => {
+    mesasGuardadas[index].reservacion = {
+      nombreClienteReserva: document.getElementById("nombreClienteEditar").value,
+      capacidadPersonas: document.getElementById("numeroPersonasEditarReserva").value,
+      fechaReservacion: document.getElementById("fechaEditar").value,
+      horaReservacion: document.getElementById("horaEditar").value,
+      ocasionTexto: document.getElementById("ocasionEspecialEditar").value,
+      notaAdicionalReserva: document.getElementById("notasAdicionalesEditar").value,
+      estadoTexto: document.getElementById("estadoEditar").value
+    };
+
+    localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
+    mostrarReservacion();
+
+    // Cerrar modales
+    bootstrap.Modal.getInstance(document.getElementById("modal-editarReserva")).hide();
+
+    Swal.fire("Reserva actualizada", "Los cambios fueron guardados con éxito", "success");
+  };
+}
