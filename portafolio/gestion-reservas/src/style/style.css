@@ -1,3 +1,172 @@
 *{
     margin: 0;
 }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #e0f7fa, #f0f4f9);
+  color: #333;
+  min-height: 100vh;
+  padding-bottom: 30px;
+}
+
+header {
+  display: flex;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffffcc;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+header h1 {
+  color: #0d6efd;
+  font-weight: 700;
+}
+
+header .botones button {
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+}
+
+header .botones button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+header .botones a {
+  color: white;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="time"],
+select,
+textarea {
+  border-radius: 10px;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 8px rgba(13, 110, 253, 0.3);
+  outline: none;
+}
+
+.modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: white;
+  border-radius: 15px 15px 0 0;
+}
+
+.modal-footer button {
+  border-radius: 8px;
+  padding: 8px 18px;
+}
+
+#mesas,
+#mesasDisponibles {
+  margin-top: 30px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.card-mesa {
+  width: 220px;
+  padding: 20px;
+  border-radius: 15px;
+  background: #ffffffcc;
+  backdrop-filter: blur(6px);
+  text-align: center;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: pointer;
+}
+
+.card-mesa:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+}
+
+.card-mesa.disponible {
+  border: 3px solid #198754;
+}
+
+.card-mesa.ocupada {
+  border: 3px solid #dc3545;
+}
+
+.card-mesa.desocupada,
+.card-mesa.desabilitada {
+  border: 3px solid #ffc107;
+}
+
+.table-responsive {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table thead {
+  background: linear-gradient(135deg, #0d6efd, #0a58ca);
+  color: white;
+}
+
+table th,
+table td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#filtroFecha,
+#filtroEstado,
+#btnLimpiarFiltros {
+  transition: all 0.3s ease;
+}
+
+#btnLimpiarFiltros:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+section h3 {
+  margin-top: 40px;
+  text-align: center;
+  color: #0d6efd;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  header {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #mesas,
+  #mesasDisponibles {
+    justify-content: center;
+  }
+}

@@ -109,10 +109,21 @@ function mostrarMesa(mesas = []) {
   containerMesa.innerHTML = ''; 
 
   mesas.forEach((mesa, index) => {
+
     // Crear el elemento principal de la tarjeta
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card pt-3';
     cardDiv.style.width = '18rem';
+
+    if (mesa.estado === "Disponible") {
+      cardDiv.style.boxShadow = "0 0 12px 3px #28a745"; // Verde
+    } else if (mesa.estado === "Ocupada") {
+      cardDiv.style.boxShadow = "0 0 12px 3px #007bff"; // Azul
+    } else if (mesa.estado === "Deshabilitada") {
+      cardDiv.style.boxShadow = "0 0 12px 3px #000000"; // Negro
+      cardDiv.style.color = "white"; // texto blanco
+      cardDiv.style.backgroundColor = "#222"; // fondo oscuro opcional
+    }
 
     // Añadir la imagen
     const img = document.createElement('img');
