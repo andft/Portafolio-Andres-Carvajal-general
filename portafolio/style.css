@@ -1,76 +1,214 @@
-*{
+* {
     margin: 0;
-    font-family: Arial;
+    font-family: "Poppins", sans-serif;
     color: white;
+    box-sizing: border-box;
 }
 
 body {
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 20px;
     min-height: 100vh;
-    background: linear-gradient(
-        #b84a4a,
-        #744530,
-        #684b0b
-    )  
+    background: linear-gradient(135deg, #b84a4a, #744530, #684b0b);
 }
 
-#container-general{
+#container-general {
+    width: 90%;
+    max-width: 1200px;
+    display: grid;
+    gap: 30px;
+}
+
+.container-informacion {
+    display: grid;
+    gap: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.nombre {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 14px;
+    text-align: center;
+    font-size: clamp(30px, 4vw, 50px);
+    font-weight: 800;
+    letter-spacing: 3px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: transform 0.3s;
+}
+.nombre:hover {
+    transform: scale(1.05);
+}
+
+.quiensoy {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 14px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    animation: slideUp 1.2s ease;
+}
+
+.mi-foto img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 3px solid rgb(255, 90, 0);
+    object-fit: cover;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.mi-foto img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(255,90,0,0.8);
+}
+
+.info-nombre {
+    flex: 1;
+    min-width: 250px;
+}
+
+.redes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.redes a img {
+    padding: 8px;
+    border-radius: 50%;
+    background: rgb(255, 90, 0);
+    transition: transform 0.3s, background 0.3s;
+}
+.redes a img:hover {
+    transform: scale(1.2) rotate(10deg);
+    background: #ffb347;
+}
+
+.container-paginas {
+    display: grid;
+    gap: 20px;
+    text-align: center;
+    animation: fadeIn 1.5s ease;
+}
+
+.container-paginas .titulo h3 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+hr {
+    border: none;
+    height: 3px;
+    background-color: rgb(255, 90, 0);
     width: 80%;
-    
-    .container-informacion{
-        display: grid;
-        row-gap: 15px;
-        padding-bottom: 15px;
+    margin: 0 auto;
+}
 
-        .nombre{
-            background-color: black;
-            padding: 10px 0;
-            border-radius: 14px;
-            text-align: center;
-            font-size: clamp(35px, 2vw, 50px);
-            line-height: 0.9;
-        }
-        .redes{
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-        .quiensoy{
-            background-color: black;
-            padding: 20px;
-            border-radius: 14px;
-            font-size: clamp(20px, 2vw, 50px);
-        }
+.paginas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.decoracion-img {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px solid rgb(255, 90, 0);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.decoracion-img img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s ease, filter 0.3s;
+}
+.decoracion-img:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+.decoracion-img:hover img {
+    transform: scale(1.1);
+    filter: brightness(70%);
+}
+.decoracion-img .titulo {
+    background: rgba(255, 90, 0, 0.85);
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px 0;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+}
+.decoracion-img:hover .titulo {
+    transform: translateY(0);
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+@keyframes slideUp {
+    from {transform: translateY(40px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+}
+
+@media (max-width: 992px) {
+    .quiensoy {
+        flex-direction: column;
+        text-align: center;
     }
+    .mi-foto img {
+        width: 140px;
+        height: 140px;
+    }
+    .info-nombre {
+        font-size: 1rem;
+    }
+}
 
-    .container-paginas{
-        display: grid;
-        justify-content: center;
-        row-gap: 15px;
-        .titulo{
-            text-align: center;
-        }
-        hr {
-            border: none;
-            height: 3px;
-            background-color: rgb(255, 90, 0);
-        }
-        .paginas{
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    .nombre {
+        font-size: clamp(24px, 5vw, 40px);
+    }
+    .quiensoy {
+        padding: 15px;
+    }
+    .redes {
+        gap: 10px;
+    }
+    .redes a img {
+        width: 35px;
+        height: 35px;
+    }
+}
 
-            .decoracion-img{
-                padding: 10px 0;
-                border: 2px solid rgb(255, 90, 0);
-                img{
-                    border-top: 2px solid rgb(255, 90, 0);
-                    border-bottom: 2px solid rgb(255, 90, 0);
-                }
-            }
-        }
+@media (max-width: 480px) {
+    .mi-foto img {
+        width: 120px;
+        height: 120px;
+    }
+    .info-nombre h3 {
+        font-size: 1.1rem;
+    }
+    .info-nombre p {
+        font-size: 0.9rem;
+    }
+    .container-paginas .titulo h3 {
+        font-size: 1.3rem;
+    }
+    .paginas {
+        grid-template-columns: 1fr;
     }
 }

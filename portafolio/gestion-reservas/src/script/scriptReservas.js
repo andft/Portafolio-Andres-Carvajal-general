@@ -394,7 +394,7 @@ function agregarReserva() {
       );
       return;
     }
-
+        
     if (horaReservacion < "08:00" || horaReservacion > "20:00") {
       Swal.fire(
         "Opps..!",
@@ -430,6 +430,14 @@ function agregarReserva() {
   };
 }
 
+function autoActualizarReservas() {
+  setInterval(() => {
+    mesasGuardadas = JSON.parse(localStorage.getItem("mesas")) || [];
+    mostrarReservacion();
+    console.log("✅ Reservas actualizadas automáticamente");
+  }, 5 * 60 * 1000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   let botonPageReservar = document.getElementById("btn-add-reserva");
   if (botonPageReservar) {
@@ -447,6 +455,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("filtroEstado").value = "";
     mostrarReservacion();
   });
+
+  autoActualizarReservas();
 });
 
 function editarReserva(index) {

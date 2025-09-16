@@ -1,173 +1,317 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./src/style/style.css" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11" />
     <title>Document</title>
-</head>
+  </head>
 
-<body class="p-4">
+  <body class="p-4">
     <header>
-        <h1>Gestión de reservas</h1>
-        <div class="botones">
-            <button type="button" class="btn btn-danger"><a href="./index.html"
-                    class="text-light text-decoration-none">Volver</a></button>
-            <button id="btn-add-reserva" type="button" class="btn btn-primary">Reservar</button>
-        </div>
+      <h1>Gestión de reservas</h1>
+      <div class="botones">
+        <button type="button" class="btn btn-danger">
+          <a href="./index.html" class="text-light text-decoration-none"
+            >Volver</a
+          >
+        </button>
+        <button id="btn-add-reserva" type="button" class="btn btn-primary">
+          Reservar
+        </button>
+      </div>
     </header>
 
     <section class="mb-3 d-flex gap-3 justify-content-center flex-wrap">
-        <input type="date" id="filtroFecha" class="form-control w-auto">
-        <select id="filtroEstado" class="form-select w-auto">
+      <input type="date" id="filtroFecha" class="form-control w-auto" />
+      <select id="filtroEstado" class="form-select w-auto">
         <option value="">Todos</option>
-            <option value="Pendiente">Pendiente</option>
-            <option value="Confirmada">Confirmada</option>
-        </select>
-        <button id="btnLimpiarFiltros" class="btn btn-secondary">Limpiar</button>
+        <option value="Pendiente">Pendiente</option>
+        <option value="Confirmada">Confirmada</option>
+      </select>
+      <button id="btnLimpiarFiltros" class="btn btn-secondary">Limpiar</button>
     </section>
 
     <section id="btn-add-page-reserva">
-        <div class="modal fade" id="modal-agregar-reservar" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Reservar Mesa</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column; gap: 5px;">
-                        <strong>Mesas Disponibles</strong>
-                        <select name="mesaDisponible" id="mesaDisponible"></select>
-                        <strong>Cliente:</strong>
-                        <input type="text" id="nombreClienteReserva" placeholder="Nombre del cliente">
-                        <strong>Número de Personas:</strong>
-                        <input type="number" id="numeroPersonasReserva" min="1" placeholder="Cantidad de personas">
-                        <strong>Fecha:</strong>
-                        <input type="date" id="fechaPageReserva">
-                        <strong>Hora:</strong>
-                        <input name="hora" type="time" id="horaPageReserva" min="08:00" max="20:00">
-                        <strong>Ocasión especial (opcional):</strong>
-                        <select name="ocasiones" id="ocasionEspecialReserva">
-                        <option value="cumpleaños">Cumpleaños</option>
-                        <option value="matrimonio">Matrimonio</option>
-                        <option value="Cancelada">Aniversario</option>
-                        <option value="Reunion Familiar">Reunion Familiar</option>
-                        <option value="Dia Del Padre">Dia Del Padre</option>
-                        <option value="Dia de la madre">Dia de la madre</option>
-                        <option value="Reunion De Negocios">Reunion De Negocios</option>
-                        <option value="Graduación">Graduación</option>
-                        </select>
-                        <strong>Notas adicionales (opcional):</strong>
-                        <textarea id="notasAdicionalesReserva" rows="2" placeholder="Notas para la reserva"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button id="botonGuardarReserva" type="button" class="btn btn-success">Guardar Reserva</button>
-                    </div>
-                </div>
+      <div
+        class="modal fade"
+        id="modal-agregar-reservar"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Reservar Mesa</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
             </div>
+            <div
+              class="modal-body"
+              style="display: flex; flex-direction: column; gap: 5px"
+            >
+              <strong>Mesas Disponibles</strong>
+              <select name="mesaDisponible" id="mesaDisponible"></select>
+              <strong>Cliente:</strong>
+              <input
+                type="text"
+                id="nombreClienteReserva"
+                placeholder="Nombre del cliente"
+              />
+              <strong>Número de Personas:</strong>
+              <input
+                type="number"
+                id="numeroPersonasReserva"
+                min="1"
+                placeholder="Cantidad de personas"
+              />
+              <strong>Fecha:</strong>
+              <input type="date" id="fechaPageReserva" />
+              <strong>Hora:</strong>
+              <input
+                name="hora"
+                type="time"
+                id="horaPageReserva"
+                min="08:00"
+                max="20:00"
+              />
+              <strong>Ocasión especial (opcional):</strong>
+              <select name="ocasiones" id="ocasionEspecialReserva">
+                <option value="cumpleaños">Cumpleaños</option>
+                <option value="matrimonio">Matrimonio</option>
+                <option value="Cancelada">Aniversario</option>
+                <option value="Reunion Familiar">Reunion Familiar</option>
+                <option value="Dia Del Padre">Dia Del Padre</option>
+                <option value="Dia de la madre">Dia de la madre</option>
+                <option value="Reunion De Negocios">Reunion De Negocios</option>
+                <option value="Graduación">Graduación</option>
+              </select>
+              <select name="duracion" id="duracionEvento">
+                <option value="1hora">1 Hora.</option>
+                <option value="2horas">2 Horas.</option>
+                <option value="3horas">3 Horas.</option>
+                <option value="4horas">4 Horas.</option>
+              </select>
+              <strong>Notas adicionales (opcional):</strong>
+              <textarea
+                id="notasAdicionalesReserva"
+                rows="2"
+                placeholder="Notas para la reserva"
+              ></textarea>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                id="botonGuardarReserva"
+                type="button"
+                class="btn btn-success"
+              >
+                Guardar Reserva
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <section id="reservas">
-        <div class="table-responsive" style="max-width: 100%; overflow-x: auto;">
-            <table id="reservasGuardadas" class="table table-dark table-striped" style="min-width: 900px;">
-                <thead>
-                    <tr>
-                        <th>N° mesa</th>
-                        <th>Ubicacion</th>
-                        <th>Nombre cliente</th>
-                        <th>N° Personas</th>
-                        <th>Ocasion</th>
-                        <th>Fecha</th>
-                        <th>Hora</th>
-                        <th>Nota</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="contenidoReservas">
-
-                </tbody>
-            </table>
-        </div>
-        <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="modalReservaLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="modalReservaLabel">Opciones de la Reserva</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-                    </div>
-
-                    <div class="modal-body">
-                        <p id="detalleReserva">Aquí irán los detalles de la reserva seleccionada.</p>
-                    </div>
-
-                    <div class="modal-footer d-flex justify-content-between">
-                        <button id="btnEditarReserva" type="button" class="btn btn-primary">Editar</button>
-                        <button id="btnEliminarReserva" type="button" class="btn btn-danger">Eliminar</button>
-                        <button id="btnPagarReserva" type="button" class="btn btn-success">Pagar</button>
-                    </div>
-                </div>
+      <div class="table-responsive" style="max-width: 100%; overflow-x: auto">
+        <table
+          id="reservasGuardadas"
+          class="table table-dark table-striped"
+          style="min-width: 900px"
+        >
+          <thead>
+            <tr>
+              <th>N° mesa</th>
+              <th>Ubicacion</th>
+              <th>Nombre cliente</th>
+              <th>N° Personas</th>
+              <th>Ocasion</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Nota</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="contenidoReservas"></tbody>
+        </table>
+      </div>
+      <div
+        class="modal fade"
+        id="modalReserva"
+        tabindex="-1"
+        aria-labelledby="modalReservaLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="modalReservaLabel">
+                Opciones de la Reserva
+              </h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Cerrar"
+              ></button>
             </div>
-        </div>
-        <div class="modal fade" id="modal-editarReserva" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Editar Reserva</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body" style="display: flex; flex-direction: column; gap: 5px;">
-                        <strong>Cliente:</strong>
-                        <input type="text" id="nombreClienteEditar" placeholder="Nombre del cliente">
-                        <strong>Número de Personas:</strong>
-                        <input type="number" id="numeroPersonasEditarReserva" min="1" placeholder="Cantidad de personas">
-                        <strong>Fecha:</strong>
-                        <input type="date" id="fechaEditar">
-                        <strong>Hora:</strong>
-                        <input name="hora" type="time" id="horaEditar" min="08:00" max="20:00">
-                        <strong>Ocasión especial (opcional):</strong>
-                        <select name="ocasiones" id="ocasionEspecialEditar">
-                            <option value="Cumpleaños">Cumpleaños</option>
-                            <option value="Matrimonio">Matrimonio</option>
-                            <option value="Aniversario">Aniversario</option>
-                            <option value="Reunion-Familiar">Reunion Familiar</option>
-                            <option value="Dia-Padre">Dia Del Padre</option>
-                            <option value="Dia-Madre">Dia de la madre</option>
-                            <option value="Reunion-Negocios">Reunion De Negocios</option>
-                            <option value="Graduación">Graduación</option>
-                        </select>
-                        <strong>Notas adicionales (opcional):</strong>
-                        <textarea id="notasAdicionalesEditar" rows="2" placeholder="Edicion notas para la reserva"></textarea>
-                        <strong>Estado Reserva</strong>
-                        <select name="estadoDeReserva" id="estadoEditar">
-                            <option value="Pendiente">Pendiente</option>
-                            <option value="Confirmada">Confirmada</option>
-                            <option value="Cancelada">Cancelada</option>
-                            <option value="No Show">No Show</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button id="botonGuardarCambiosReserva" type="button" class="btn btn-success">Guardar Reserva</button>
-                    </div>
-                </div>
+
+            <div class="modal-body">
+              <p id="detalleReserva">
+                Aquí irán los detalles de la reserva seleccionada.
+              </p>
             </div>
+
+            <div class="modal-footer d-flex justify-content-between">
+              <button
+                id="btnEditarReserva"
+                type="button"
+                class="btn btn-primary"
+              >
+                Editar
+              </button>
+              <button
+                id="btnEliminarReserva"
+                type="button"
+                class="btn btn-danger"
+              >
+                Eliminar
+              </button>
+              <button
+                id="btnPagarReserva"
+                type="button"
+                class="btn btn-success"
+              >
+                Pagar
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
+      <div
+        class="modal fade"
+        id="modal-editarReserva"
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Editar Reserva</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+              ></button>
+            </div>
+            <div
+              class="modal-body"
+              style="display: flex; flex-direction: column; gap: 5px"
+            >
+              <strong>Cliente:</strong>
+              <input
+                type="text"
+                id="nombreClienteEditar"
+                placeholder="Nombre del cliente"
+              />
+              <strong>Número de Personas:</strong>
+              <input
+                type="number"
+                id="numeroPersonasEditarReserva"
+                min="1"
+                placeholder="Cantidad de personas"
+              />
+              <strong>Fecha:</strong>
+              <input type="date" id="fechaEditar" />
+              <strong>Hora:</strong>
+              <input
+                name="hora"
+                type="time"
+                id="horaEditar"
+                min="08:00"
+                max="20:00"
+              />
+              <strong>Ocasión especial (opcional):</strong>
+              <select name="ocasiones" id="ocasionEspecialEditar">
+                <option value="Cumpleaños">Cumpleaños</option>
+                <option value="Matrimonio">Matrimonio</option>
+                <option value="Aniversario">Aniversario</option>
+                <option value="Reunion-Familiar">Reunion Familiar</option>
+                <option value="Dia-Padre">Dia Del Padre</option>
+                <option value="Dia-Madre">Dia de la madre</option>
+                <option value="Reunion-Negocios">Reunion De Negocios</option>
+                <option value="Graduación">Graduación</option>
+              </select>
+              <select name="duracion" id="duracionEvento">
+                <option value="1">1 Hora.</option>
+                <option value="2">2 Horas.</option>
+                <option value="3">3 Horas.</option>
+                <option value="4">4 Horas.</option>
+              </select>
+              <strong>Notas adicionales (opcional):</strong>
+              <textarea
+                id="notasAdicionalesEditar"
+                rows="2"
+                placeholder="Edicion notas para la reserva"
+              ></textarea>
+              <strong>Estado Reserva</strong>
+              <select name="estadoDeReserva" id="estadoEditar">
+                <option value="Pendiente">Pendiente</option>
+                <option value="Confirmada">Confirmada</option>
+                <option value="Cancelada">Cancelada</option>
+                <option value="No Show">No Show</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cerrar
+              </button>
+              <button
+                id="botonGuardarCambiosReserva"
+                type="button"
+                class="btn btn-success"
+              >
+                Guardar Reserva
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section>
-        <h3>Mesas Disponibles</h3>
-        <div id="mesasDisponibles" class="d-flex flex-wrap justify-content-center gap-3"></div>
+      <h3>Mesas Disponibles</h3>
+      <div
+        id="mesasDisponibles"
+        class="d-flex flex-wrap justify-content-center gap-3"
+      ></div>
     </section>
 
     <script type="module" src="./src/script/scriptReservas.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-</body>
-
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@3.6.0/dist/date-fns.min.js"></script>
+  </body>
 </html>
