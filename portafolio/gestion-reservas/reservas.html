@@ -87,26 +87,28 @@
               />
               <strong>Ocasión especial (opcional):</strong>
               <select name="ocasiones" id="ocasionEspecialReserva">
-                <option value="cumpleaños">Cumpleaños</option>
-                <option value="matrimonio">Matrimonio</option>
-                <option value="Cancelada">Aniversario</option>
+                <option value="Cumpleaños">Cumpleaños</option>
+                <option value="Matrimonio">Matrimonio</option>
+                <option value="Aniversario">Aniversario</option>
                 <option value="Reunion Familiar">Reunion Familiar</option>
-                <option value="Dia Del Padre">Dia Del Padre</option>
-                <option value="Dia de la madre">Dia de la madre</option>
-                <option value="Reunion De Negocios">Reunion De Negocios</option>
+                <option value="Dia del Padre">Dia del Padre</option>
+                <option value="Dia de la Madre">Dia de la Madre</option>
+                <option value="Reunion de Negocios">Reunion de Negocios</option>
                 <option value="Graduación">Graduación</option>
               </select>
               <select name="duracion" id="duracionEvento">
-                <option value="1hora">1 Hora.</option>
-                <option value="2horas">2 Horas.</option>
-                <option value="3horas">3 Horas.</option>
-                <option value="4horas">4 Horas.</option>
+                <option value="1">1 Hora.</option>
+                <option value="2">2 Horas.</option>
+                <option value="3">3 Horas.</option>
+                <option value="4">4 Horas.</option>
               </select>
               <strong>Notas adicionales (opcional):</strong>
               <textarea
                 id="notasAdicionalesReserva"
-                rows="2"
+                class="form-control"
                 placeholder="Notas para la reserva"
+                rows="4"
+                style="resize: vertical; min-height: 80px;"
               ></textarea>
             </div>
             <div class="modal-footer">
@@ -254,10 +256,10 @@
                 <option value="Cumpleaños">Cumpleaños</option>
                 <option value="Matrimonio">Matrimonio</option>
                 <option value="Aniversario">Aniversario</option>
-                <option value="Reunion-Familiar">Reunion Familiar</option>
-                <option value="Dia-Padre">Dia Del Padre</option>
-                <option value="Dia-Madre">Dia de la madre</option>
-                <option value="Reunion-Negocios">Reunion De Negocios</option>
+                <option value="Reunion Familiar">Reunion Familiar</option>
+                <option value="Dia del Padre">Dia del Padre</option>
+                <option value="Dia de la Madre">Dia de la Madre</option>
+                <option value="Reunion de Negocios">Reunion de Negocios</option>
                 <option value="Graduación">Graduación</option>
               </select>
               <select name="duracion" id="duracionEvento">
@@ -269,8 +271,10 @@
               <strong>Notas adicionales (opcional):</strong>
               <textarea
                 id="notasAdicionalesEditar"
-                rows="2"
-                placeholder="Edicion notas para la reserva"
+                class="form-control"
+                placeholder="Notas para la reserva"
+                rows="4"
+                style="resize: vertical; min-height: 80px;"
               ></textarea>
               <strong>Estado Reserva</strong>
               <select name="estadoDeReserva" id="estadoEditar">

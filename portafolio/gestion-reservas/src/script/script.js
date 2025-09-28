@@ -15,7 +15,7 @@ botonGuardarReserva.addEventListener("click", () => {
   let numeroMesa = document.getElementById("numeroMesa").value.trim();
   let capacidad = document.getElementById("capacidad").value.trim();
   let ubicacion = document.getElementById("ubicacion").value.trim();
-  let estado = document.getElementById("estado").value.trim();
+  let estado = document.getElementById("estado").value.trim();    
 
   if (!numeroMesa) {
     Swal.fire({
@@ -105,44 +105,38 @@ botonGuardarReserva.addEventListener("click", () => {
 
 function mostrarMesa(mesas = []) {
   let containerMesa = document.getElementById("mesas");
-  // Limpiar el contenido existente antes de añadir las nuevas mesas
   containerMesa.innerHTML = ''; 
 
   mesas.forEach((mesa, index) => {
 
-    // Crear el elemento principal de la tarjeta
     const cardDiv = document.createElement('div');
     cardDiv.className = 'card pt-3';
     cardDiv.style.width = '18rem';
 
     if (mesa.estado === "Disponible") {
-      cardDiv.style.boxShadow = "0 0 12px 3px #28a745"; // Verde
+      cardDiv.style.boxShadow = "0 0 12px 3px #28a745"; 
     } else if (mesa.estado === "Ocupada") {
-      cardDiv.style.boxShadow = "0 0 12px 3px #007bff"; // Azul
+      cardDiv.style.boxShadow = "0 0 12px 3px #007bff";
     } else if (mesa.estado === "Deshabilitada") {
-      cardDiv.style.boxShadow = "0 0 12px 3px #000000"; // Negro
-      cardDiv.style.color = "white"; // texto blanco
-      cardDiv.style.backgroundColor = "#222"; // fondo oscuro opcional
+      cardDiv.style.boxShadow = "0 0 12px 3px #000000";
+      cardDiv.style.color = "white"; 
+      cardDiv.style.backgroundColor = "#222"; 
     }
 
-    // Añadir la imagen
     const img = document.createElement('img');
     img.src = './src/img/mesaIMG.png';
     img.className = 'card-img-top w-50 m-auto';
     img.alt = '...';
     cardDiv.appendChild(img);
 
-    // Crear el cuerpo de la tarjeta
     const cardBody = document.createElement('div');
     cardBody.className = 'card-body';
 
-    // Añadir el título
     const h5 = document.createElement('h5');
     h5.className = 'card-title';
     h5.textContent = `Mesa #${mesa.numeroMesa}`;
     cardBody.appendChild(h5);
 
-    // Añadir el texto de la tarjeta (capacidad, ubicación, estado)
     const cardTextDiv = document.createElement('div');
     cardTextDiv.className = 'card-text';
     cardTextDiv.style.display = 'grid';
@@ -161,25 +155,21 @@ function mostrarMesa(mesas = []) {
 
     cardBody.appendChild(cardTextDiv);
 
-    // Crear el contenedor de botones
     const cardButtonDiv = document.createElement('div');
     cardButtonDiv.className = 'card-button mt-4 d-flex flex-row justify-content-evenly';
 
-    // Botón Eliminar
     const btnEliminar = document.createElement('button');
     btnEliminar.className = 'btn btn-danger btn-sm';
     btnEliminar.textContent = 'Eliminar';
     btnEliminar.addEventListener('click', () => eliminarMesa(index));
     cardButtonDiv.appendChild(btnEliminar);
 
-    // Botón Editar
     const btnEditar = document.createElement('button');
     btnEditar.className = 'btn btn-primary btn-sm';
     btnEditar.textContent = 'Editar';
     btnEditar.addEventListener('click', () => editar(index));
     cardButtonDiv.appendChild(btnEditar);
 
-    // Botón Reservar
     const btnReservar = document.createElement('button');
     btnReservar.className = 'btn btn-success btn-sm';
     btnReservar.textContent = 'Reservar';
@@ -190,7 +180,6 @@ function mostrarMesa(mesas = []) {
 
     cardDiv.appendChild(cardBody);
 
-    // Añadir la tarjeta al contenedor principal
     containerMesa.appendChild(cardDiv);
   });
 }
@@ -279,78 +268,79 @@ function reservar(numeroMesa) {
     document.getElementById("modal-reservar")
   );
   modal.show();
-  console.log(numeroMesa);
 }
 
 let botonReservar = document.getElementById("botonGuardarReserva");
 botonReservar.addEventListener("click", () => {
-  let nombreClienteReserva = document.getElementById("nombreCliente").value
+  let nombreClienteReserva = document.getElementById("nombreCliente").value.trim();
   let idMesaSeleccionada = document.getElementById("mesaSeleccionada").value;
-  let capacidadPersonas = parseInt(
-    document.getElementById("numeroPersonas").value
-  );
-  let fechaReservacion = document.getElementById("fechaReserva");
-  let fechaActual = Date.now();
-  let fechaReservacionSegundos = new Date(fechaReservacion.value);
-  let horaReservacion = document.getElementById("horaReserva");
+  let capacidadPersonas = parseInt(document.getElementById("numeroPersonas").value);
+  let fechaReservacion = document.getElementById("fechaReserva").value;
+  let horaReservacion = document.getElementById("horaReserva").value;
+  let duracionReserva = parseInt(document.getElementById("duracionEvento").value) || 60;
   let ocasionReservacion = document.getElementById("ocasionEspecial");
-  let notaAdicionalReserva = document.getElementById("notasAdicionales")
-  let datosMesas = mesasGuardadas.find(
-    (idMesa) => idMesa.numeroMesa == idMesaSeleccionada
-  );
-  const { numeroMesa, capacidad, ubicacion, estado } = datosMesas;
+  let notaAdicionalReserva = document.getElementById("notasAdicionales").value.trim();
 
-  if (!nombreClienteReserva) {
-    Swal.fire({
-      title: "Opps..!",
-      text: "Ingrese el nombre.",
-      icon: "error",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-    return;
-  }
-  if (capacidadPersonas > capacidad || capacidadPersonas < 1) {
-    Swal.fire({
-      title: "Opps..!",
-      text: "La capacidad no puede ser mayor a la de la mesa.",
-      icon: "error",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-    return;
-  }
-  if (estado == "Ocupada" || estado == "Desabilitada") {
-    Swal.fire({
-      title: "Opps..!",
-      text: "La mesa ya se encuentra reservada o esta desabilitada.",
-      icon: "error",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-    return;
+  let datosMesa = mesasGuardadas.find(m => m.numeroMesa == idMesaSeleccionada);
+  if (!datosMesa) return Swal.fire("Error", "Mesa no encontrada", "error");
+
+  const { numeroMesa, capacidad, estado } = datosMesa;
+
+  if (!nombreClienteReserva) return Swal.fire("Opps..!", "Ingrese el nombre del cliente.", "error");
+
+  if (isNaN(capacidadPersonas) || capacidadPersonas < 1 || capacidadPersonas > capacidad) {
+    return Swal.fire("Opps..!", `La capacidad debe estar entre 1 y ${capacidad}`, "error");
   }
 
-  const resultadoFechaReservacion = fechaReservacionSegundos - fechaActual;
-  if (resultadoFechaReservacion < 0) {
-    Swal.fire({
-      title: "Opps..!",
-      text: "La fecha de reservacion debe ser posterior a la actual.",
-      icon: "error",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-    return;
+  if (estado === "Ocupada" || estado === "Deshabilitada") {
+    return Swal.fire("Opps..!", "La mesa ya se encuentra ocupada o deshabilitada.", "error");
   }
 
-  let ocasionTexto = ocasionReservacion.options[ocasionReservacion.selectedIndex].text
+  if (!fechaReservacion || !horaReservacion) return Swal.fire("Opps..!", "Debes seleccionar fecha y hora", "error");
 
-  guardarReserva(numeroMesa, nombreClienteReserva, capacidadPersonas, fechaReservacion.value, horaReservacion.value, ocasionTexto, notaAdicionalReserva.value)
+  let fechaReservacionSeleccionada = new Date(fechaReservacion + "T" + horaReservacion);
+  if (isNaN(fechaReservacionSeleccionada.getTime())) {
+    return Swal.fire("Opps..!", "Debes seleccionar una fecha válida.", "error");
+  }
 
-  
-  let modal = bootstrap.Modal.getInstance(
-    document.getElementById("modal-reservar")
-  );
+  if (horaReservacion < "08:00" || horaReservacion > "20:00") {
+    return Swal.fire("Opps..!", "La hora debe ser entre las 08:00 AM y las 08:00 PM.", "error");
+  }
+
+  if (fechaReservacionSeleccionada <= new Date()) {
+    return Swal.fire({
+      title: "Opps..! ",
+      text: "La fecha de reservación debe ser desde la hora actual en adelante.",
+      icon: "error",
+      timer: 2000,
+      showConfirmButton: false,
+    });
+  }
+
+  let ocasionTexto = ocasionReservacion.options[ocasionReservacion.selectedIndex].text;
+
+  let fechaHoraAntes = new Date(fechaReservacionSeleccionada.getTime() - 2 * 60 * 1000);
+  let fechaHoraDespues = new Date(fechaReservacionSeleccionada.getTime() + duracionReserva * 60 * 1000);
+
+  if (!Array.isArray(datosMesa.reservaciones)) datosMesa.reservaciones = [];
+  datosMesa.reservaciones.push({
+    idReserva: crypto.randomUUID(),
+    nombreClienteReserva,
+    capacidadPersonas,
+    fechaReservacion,
+    horaReservacion,
+    duracionReserva,
+    fechaHoraAntes,
+    fechaHoraDespues,
+    ocasionTexto,
+    notaAdicionalReserva,
+  });
+
+  datosMesa.estado = "Ocupada";
+
+  localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
+
+  let modal = bootstrap.Modal.getInstance(document.getElementById("modal-reservar"));
   modal.hide();
 
   Swal.fire({
@@ -359,22 +349,51 @@ botonReservar.addEventListener("click", () => {
     text: "La reserva fue guardada correctamente",
   });
 
-  let refrescarCardMesas = mesasGuardadas = JSON.parse(localStorage.getItem("mesas"));
-  mostrarMesa(refrescarCardMesas)
+  mostrarMesa(mesasGuardadas);
 });
 
-document.getElementById("horaReserva").addEventListener("change", function () {
-    
-      const horaReservacion = this.value;
 
-      if (horaReservacion < "08:00" || horaReservacion > "20:00") {
-        Swal.fire({
-          title: "Opps..!",
-          text: "La hora debe ser entre las 8:00 AM y las 8:00 PM.",
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
+ document.getElementById("horaReserva").addEventListener("change", function () {
+  const horaReservacion = this.value;
+  if (horaReservacion < "08:00" || horaReservacion > "20:00") {
+    Swal.fire({
+      title: "Opps..! ",
+      text: "La hora debe ser entre las 08:00 AM y las 08:00 PM.",
+      icon: "error",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+    this.value = ""; 
+  }
+});
+
+function autoActualizarMesas() {
+  setInterval(() => {
+    mesasGuardadas = JSON.parse(localStorage.getItem("mesas")) || [];
+
+    let ahora = new Date();
+
+    mesasGuardadas.forEach(mesa => {
+      if (Array.isArray(mesa.reservaciones) && mesa.reservaciones.length > 0) {
+        let ocupada = mesa.reservaciones.some(reserva => {
+          let inicio = new Date(reserva.fechaHoraAntes);
+          let fin = new Date(reserva.fechaHoraDespues);
+          return ahora >= inicio && ahora <= fin;
         });
-        return
+        mesa.estado = ocupada ? "Ocupada" : "Disponible";
+      } else {
+        mesa.estado = "Disponible";
       }
     });
+
+    localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
+
+    mostrarMesa(mesasGuardadas);
+
+    console.log("✅ Mesas actualizadas automáticamente");
+  }, 5000); 
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  autoActualizarMesas();
+});
