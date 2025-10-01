@@ -86,7 +86,7 @@ botonGuardarReserva.addEventListener("click", () => {
         numeroMesa,
         capacidad,
         ubicacion,
-        estado,
+        estado
       });
 
       mostrarMesa(mesasGuardadas);
@@ -281,11 +281,6 @@ botonReservar.addEventListener("click", () => {
   let ocasionReservacion = document.getElementById("ocasionEspecial");
   let notaAdicionalReserva = document.getElementById("notasAdicionales").value.trim();
 
-  let datosMesa = mesasGuardadas.find(m => m.numeroMesa == idMesaSeleccionada);
-  if (!datosMesa) return Swal.fire("Error", "Mesa no encontrada", "error");
-
-  const { numeroMesa, capacidad, estado } = datosMesa;
-
   if (!nombreClienteReserva) return Swal.fire("Opps..!", "Ingrese el nombre del cliente.", "error");
 
   if (isNaN(capacidadPersonas) || capacidadPersonas < 1 || capacidadPersonas > capacidad) {
@@ -322,23 +317,7 @@ botonReservar.addEventListener("click", () => {
   let fechaHoraAntes = new Date(fechaReservacionSeleccionada.getTime() - 2 * 60 * 1000);
   let fechaHoraDespues = new Date(fechaReservacionSeleccionada.getTime() + duracionReserva * 60 * 1000);
 
-  if (!Array.isArray(datosMesa.reservaciones)) datosMesa.reservaciones = [];
-  datosMesa.reservaciones.push({
-    idReserva: crypto.randomUUID(),
-    nombreClienteReserva,
-    capacidadPersonas,
-    fechaReservacion,
-    horaReservacion,
-    duracionReserva,
-    fechaHoraAntes,
-    fechaHoraDespues,
-    ocasionTexto,
-    notaAdicionalReserva,
-  });
-
-  datosMesa.estado = "Ocupada";
-
-  localStorage.setItem("mesas", JSON.stringify(mesasGuardadas));
+  guardarReserva(idMesaSeleccionada, nombreClienteReserva, capacidadPersonas, fechaReservacion, horaReservacion, duracionReserva, fechaHoraAntes, fechaHoraDespues, ocasionTexto, notaAdicionalReserva);
 
   let modal = bootstrap.Modal.getInstance(document.getElementById("modal-reservar"));
   modal.hide();

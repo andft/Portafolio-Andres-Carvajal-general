@@ -13,9 +13,13 @@ export function guardarReserva(
   capacidadPersonas,
   fechaReservacion,
   horaReservacion,
+  duracionReserva,
+  fechaHoraAntes,
+  fechaHoraDespues,
   ocasionTexto,
   notaAdicionalReserva
 ) {
+  console.log(numeroMesa);
   mesasGuardadas = JSON.parse(localStorage.getItem("mesas")) || [];
 
   const mesaEncontrada = mesasGuardadas.find(
@@ -27,14 +31,20 @@ export function guardarReserva(
       mesaEncontrada.reservaciones = [];
     }
 
-    mesaEncontrada.estado = "Disponible";
+    console.log(mesaEncontrada);
+
+    mesaEncontrada.estado = "Ocupada";
     mesaEncontrada.estadoMesa = "Ocupada";
 
     mesaEncontrada.reservaciones.push({
+      idReserva: crypto.randomUUID(),
       nombreClienteReserva,
       capacidadPersonas,
       fechaReservacion,
       horaReservacion,
+      duracionReserva,
+      fechaHoraAntes,
+      fechaHoraDespues,
       ocasionTexto,
       notaAdicionalReserva,
     });
@@ -46,7 +56,6 @@ export function guardarReserva(
 }
 
 function mostrarReservacion() {
-  console.log(mesasGuardadas);
   let mesasDisponibles = [];
 
   const fecha = document.getElementById("filtroFecha")?.value || "";
@@ -66,10 +75,8 @@ function mostrarReservacion() {
   if (estado) {
     reservas = reservas.filter((r) => r.reservacion.estadoTexto === estado);
   }
-  console.log(reservas);
   reservas.forEach((datosMesa) => {
     datosMesa.reservaciones.forEach((datosReserva) => {
-      console.log(datosMesa.reservaciones);
       // Crear fila de la tabla
       const tr = document.createElement("tr");
 
@@ -187,8 +194,6 @@ function mostrarReservacion() {
           document.getElementById("modalReserva")
         );
         modal.show();
-
-        console.log(indexReal);
       });
 
       contenidoReservas.appendChild(tr);
@@ -232,10 +237,8 @@ function mostrarReservacion() {
 
       cardBody.appendChild(p);
 
-      // Añadir body a la card
       cardDiv.appendChild(cardBody);
 
-      // Insertar la card al contenedor
       cardMesasDisponibles.appendChild(cardDiv);
     });
 
@@ -311,8 +314,6 @@ function pagar(mesaIndex, idReserva) {
 }
 
 function eliminarReserva(mesaIndex, idReserva) {
-  console.log(mesaIndex, idReserva);
-
   const mesa = mesasGuardadas[mesaIndex];
 
   if (!mesa) {
@@ -437,7 +438,6 @@ function agregarReserva() {
     let fechaReservacionSeleccionada = new Date(
       fechaReservacion + "T" + horaReservacion
     );
-    console.log(fechaReservacionSeleccionada);
     let fechaActual = new Date();
 
     if (isNaN(fechaReservacionSeleccionada.getTime())) {
@@ -479,9 +479,6 @@ function agregarReserva() {
     let fechaHoraDespues = new Date(
       fechaReservacionSeleccionada.getTime() + duracionReserva * 60 * 60 * 1000
     );
-
-    console.log(fechaHoraAntes);
-    console.log(fechaHoraDespues);
 
     let mesaIndex = mesasGuardadas.findIndex(
       (m) => m.numeroMesa == idMesaSeleccionada
@@ -530,7 +527,6 @@ function autoActualizarReservas() {
 
     mesasGuardadas.forEach((mesa) => {
       if (Array.isArray(mesa.reservaciones) && mesa.reservaciones.length > 0) {
-
         let ocupada = mesa.reservaciones.some((reserva) => {
           let inicio = new Date(reserva.fechaHoraAntes);
           let fin = new Date(reserva.fechaHoraDespues);
@@ -676,7 +672,6 @@ function editarReserva(mesaIndex, idReserva) {
         "info"
       );
     } else {
-
       mesasGuardadas[mesaIndex].reservaciones[reservaIndex] = {
         ...mesasGuardadas[mesaIndex].reservaciones[reservaIndex],
         nombreClienteReserva,
