@@ -26,6 +26,8 @@ export function guardarReserva(
     (mesa) => mesa.numeroMesa == numeroMesa
   );
 
+  console.log(mesaEncontrada);
+
   if (mesaEncontrada) {
     if (!mesaEncontrada.reservaciones) {
       mesaEncontrada.reservaciones = [];
