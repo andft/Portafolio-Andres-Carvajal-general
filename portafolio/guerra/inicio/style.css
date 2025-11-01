@@ -1,0 +1,134 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Press Start 2P', monospace;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+#videoFondo {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;      
+    filter: brightness(70%);
+}
+
+#tituloJuego {
+    position: absolute;
+    top: 30px;
+    text-align: center;
+    font-size: 32px;
+    text-shadow: 4px 4px 0 #000000;
+    text-transform: uppercase;
+    color: #A52A2A;
+    width: 100%;
+    letter-spacing: 3px;
+}
+
+#contenedorMenu {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 60px 80px;
+    border: 6px solid #000000;
+    box-shadow: 10px 10px 0 #000000;
+    z-index: 1;
+    border-radius: 10px;
+}
+
+.botonMenu {
+    background-color: #8B0000;
+    color: #FFFFFF;
+    font-family: 'Press Start 2P', monospace;
+    font-size: 20px;
+    padding: 20px 40px;
+    border: 4px solid #000000;
+    box-shadow:
+        5px 5px 0 #000000,
+        inset 2px 2px 0 #A52A2A,
+        inset -2px -2px 0 #5C0000;
+    text-transform: uppercase;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.botonMenu:hover {
+    transform: translate(2px, 2px);
+    box-shadow:
+        3px 3px 0 #000000,
+        inset 2px 2px 0 #A52A2A,
+        inset -2px -2px 0 #5C0000;
+    background-color: #A52A2A;
+}
+
+.botonMenu:active {
+    transform: translate(4px, 4px);
+    box-shadow:
+        0 0 0 #000000,
+        inset 2px 2px 0 #A52A2A,
+        inset -2px -2px 0 #5C0000;
+    background-color: #5C0000;
+}
+
+#botonSonido {
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  padding: 14px 22px;
+  border: 4px solid #000000;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-align: center;
+  transition: all 0.15s ease;
+  z-index: 3;
+}
+
+/* Estado: sonido apagado */
+#botonSonido.silenciado {
+  background-color: #8B0000;
+  color: #FFFFFF;
+  box-shadow:
+    4px 4px 0 #000000,
+    inset 2px 2px 0 #A52A2A,
+    inset -2px -2px 0 #5C0000;
+}
+
+#botonSonido.activo {
+  background-color: #228B22; /* Verde militar */
+  color: #000000;
+  box-shadow:
+    4px 4px 0 #000000,
+    inset 2px 2px 0 #7CFC00,
+    inset -2px -2px 0 #2E8B57;
+}
+
+/* Efectos de hover y click */
+#botonSonido:hover {
+  transform: translate(2px, 2px);
+  box-shadow:
+    2px 2px 0 #000000,
+    inset 2px 2px 0 rgba(0,0,0,0.2),
+    inset -2px -2px 0 rgba(0,0,0,0.3);
+}
+
+#botonSonido:active {
+  transform: translate(4px, 4px);
+  box-shadow:
+    0 0 0 #000000,
+    inset 2px 2px 0 rgba(0,0,0,0.4),
+    inset -2px -2px 0 rgba(0,0,0,0.4);
+}

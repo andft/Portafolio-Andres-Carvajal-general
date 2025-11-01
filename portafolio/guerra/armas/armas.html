@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARSENAL</title>
+    <link rel="stylesheet" href="armas.css" />
+  </head>
+  <body>
+    <section class="arsenal">
+      <audio id="backgroundAudio" loop>
+        <source src="https://github.com/user-attachments/files/23154071/sonidoarmas.mp3" type="audio/mp3" />
+      </audio>
+
+      <!-- 🎛️ Botón de sonido -->
+      <button id="soundToggle" class="muted">🔇 Mute</button>
+      <a href="../inicio/inicio.html"
+        ><button
+          id="backButton"
+          style="
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+          "
+        >
+          Atrás
+        </button></a
+      >
+
+      <!-- Lista de armas -->
+      <div class="lista-armas">
+        <h2>Arsenal</h2>
+        <div class="botones-armas">
+          <div class="arma-btn activo" data-arma="fusil">
+            <img src="./src/img/fusil.png" alt="fusil" />
+          </div>
+          <div class="arma-btn" data-arma="granada">
+            <img src="./src/img/granada.png" alt="granada" />
+          </div>
+          <div class="arma-btn" data-arma="lewis">
+            <img src="./src/img/metralleta.png" alt="lewis" />
+          </div>
+          <div class="arma-btn" data-arma="mp18">
+            <img src="./src/img/mp18.png" alt="mp18" />
+          </div>
+          <div class="arma-btn" data-arma="pistola">
+            <img src="./src/img/pistola.png" alt="pistola" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Vista detallada -->
+      <div class="vista-arma">
+        <div class="imagen-container">
+          <img
+            id="imagen-arma"
+            src="./src/png/fusilpng.png"
+            alt="Arma seleccionada"
+          />
+        </div>
+        <div class="info-arma">
+          <h3 id="nombre-arma">Fusil Lee-Enfield</h3>
+          <p>
+            <strong>Tipo:</strong> <span id="tipo-arma">Rifle de cerrojo</span>
+          </p>
+          <p><strong>Daño:</strong> <span id="daño-arma">80</span></p>
+          <p><strong>Alcance:</strong> <span id="alcance-arma">Largo</span></p>
+          <p id="descripcion-arma">
+            Rifle británico de precisión, famoso por su fiabilidad y alcance.
+            Usado ampliamente por los aliados.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script src="armas.js"></script>
+  </body>
+</html>

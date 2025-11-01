@@ -1,0 +1,58 @@
+{
+  "vehiculosWW1": [
+    {
+      "tipo": "avion",
+      "nombre": "Biplano de combate rojo",
+      "descripcion": "Avión ligero de combate usado para reconocimiento y ataques aéreos. Maniobrable pero frágil.",
+      "velocidad": 180,
+      "vida": 100,
+      "ataque": 50,
+      "alcance": 300
+    },
+    {
+      "tipo": "tractor",
+      "nombre": "Tractor de suministros",
+      "descripcion": "Vehículo lento, usado para transporte de artillería y suministros en terrenos difíciles como nieve.",
+      "velocidad": 20,
+      "vida": 250,
+      "ataque": 10,
+      "alcance": 0
+    },
+    {
+      "tipo": "tanque",
+      "nombre": "Tanque de asalto",
+      "descripcion": "Blindado pesado diseñado para romper líneas enemigas y resistir fuego de artillería ligera.",
+      "velocidad": 8,
+      "vida": 400,
+      "ataque": 80,
+      "alcance": 50
+    },
+    {
+      "tipo": "carro",
+      "nombre": "Carro blindado urbano",
+      "descripcion": "Vehículo ligero blindado para transporte de tropas y patrullaje en ciudades en ruinas.",
+      "velocidad": 35,
+      "vida": 150,
+      "ataque": 30,
+      "alcance": 30
+    },
+    {
+      "tipo": "carruaje",
+      "nombre": "Carruaje de tropas",
+      "descripcion": "Transporte tradicional tirado por caballos, lento pero útil para movilizar soldados y suministros.",
+      "velocidad": 15,
+      "vida": 100,
+      "ataque": 0,
+      "alcance": 0
+    },
+    {
+      "tipo": "barco",
+      "nombre": "Buque de guerra",
+      "descripcion": "Barco blindado para transporte y bombardeo naval. Gran resistencia y poder de ataque a distancia.",
+      "velocidad": 25,
+      "vida": 500,
+      "ataque": 100,
+      "alcance": 200
+    }
+  ]
+}

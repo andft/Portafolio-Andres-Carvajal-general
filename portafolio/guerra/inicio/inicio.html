@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Juego Pixel WW1</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <video autoplay loop muted id="videoFondo">
+      <source
+        src="https://github.com/user-attachments/assets/645ed8db-1474-415a-a6e3-888fcb3ec371"
+        type="video/mp4"
+      />
+    </video>
+
+    <audio id="audioFondo" loop>
+      <source
+        src="https://github.com/user-attachments/files/23154122/sonidoinicio.mp3"
+        type="audio/mp3"
+      />
+    </audio>
+
+    <button id="botonSonido" class="silenciado">Silenciar</button>
+
+    <h1 id="tituloJuego">Batalla Pixel WW1</h1>
+
+    <div id="contenedorMenu">
+      <a
+        href="../vehiculos/vehiculos.html"
+        class="botonMenu"
+        data-sonido-hover="./src/audio/button_hover.mp3"
+        data-sonido-click="./src/audio/button_click.mp3"
+        >Vehículos</a
+      >
+      <a
+        href="../armas/armas.html"
+        class="botonMenu"
+        data-sonido-hover="./src/audio/button_hover.mp3"
+        data-sonido-click="./src/audio/button_click.mp3"
+        >Armas</a
+      >
+      <a
+        href="../personajes/personajes.html"
+        class="botonMenu"
+        data-sonido-hover="./src/audio/button_hover.mp3"
+        data-sonido-click="./src/audio/button_click.mp3"
+        >Personajes</a
+      >
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
