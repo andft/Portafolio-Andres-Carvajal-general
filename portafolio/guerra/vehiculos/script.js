@@ -1,23 +1,70 @@
+const vehiculosWW1 = [
+  {
+    tipo: "avion",
+    nombre: "Biplano de combate rojo",
+    descripcion: "Avión ligero de combate usado para reconocimiento y ataques aéreos. Maniobrable pero frágil.",
+    velocidad: 180,
+    vida: 100,
+    ataque: 50,
+    alcance: 300
+  },
+  {
+    tipo: "tractor",
+    nombre: "Tractor de suministros",
+    descripcion: "Vehículo lento, usado para transporte de artillería y suministros en terrenos difíciles como nieve.",
+    velocidad: 20,
+    vida: 250,
+    ataque: 10,
+    alcance: 0
+  },
+  {
+    tipo: "tanque",
+    nombre: "Tanque de asalto",
+    descripcion: "Blindado pesado diseñado para romper líneas enemigas y resistir fuego de artillería ligera.",
+    velocidad: 8,
+    vida: 400,
+    ataque: 80,
+    alcance: 50
+  },
+  {
+    tipo: "carro",
+    nombre: "Carro blindado urbano",
+    descripcion: "Vehículo ligero blindado para transporte de tropas y patrullaje en ciudades en ruinas.",
+    velocidad: 35,
+    vida: 150,
+    ataque: 30,
+    alcance: 30
+  },
+  {
+    tipo: "carruaje",
+    nombre: "Carruaje de tropas",
+    descripcion: "Transporte tradicional tirado por caballos, lento pero útil para movilizar soldados y suministros.",
+    velocidad: 15,
+    vida: 100,
+    ataque: 0,
+    alcance: 0
+  },
+  {
+    tipo: "barco",
+    nombre: "Buque de guerra",
+    descripcion: "Barco blindado para transporte y bombardeo naval. Gran resistencia y poder de ataque a distancia.",
+    velocidad: 25,
+    vida: 500,
+    ataque: 100,
+    alcance: 200
+  }
+];
+
 const campo = document.getElementById('containerVehiculos');
 const vehiculos = document.querySelectorAll('.imagenVehiculo');
 let imagenSeleccionada = null;
 let zoomActivo = false;
-let dataVehiculos = [];
+let dataVehiculos = vehiculosWW1;
 
-// --- Cargar datos del JSON externo ---
-fetch('./src/vehiculos.json')
-  .then(res => res.json())
-  .then(data => {
-    dataVehiculos = data.vehiculosWW1;
-  })
-  .catch(err => console.error('Error cargando JSON:', err));
-
-// Crear overlay desenfocado
 const overlay = document.createElement('div');
 overlay.id = 'overlayBlur';
 document.body.appendChild(overlay);
 
-// Crear contenedor de información lateral
 const infoDiv = document.createElement('div');
 infoDiv.id = 'infoVehiculo';
 infoDiv.style.display = 'none';
@@ -25,7 +72,6 @@ infoDiv.style.position = 'absolute';
 infoDiv.style.transition = 'all 0.6s ease';
 campo.appendChild(infoDiv);
 
-// --- Evento de click sobre cada imagen ---
 vehiculos.forEach(v => {
   v.addEventListener('click', e => {
     if (zoomActivo) return;
@@ -38,7 +84,6 @@ vehiculos.forEach(v => {
     v.style.zIndex = '20';
     v.style.position = 'absolute';
 
-    // Mostrar overlay
     overlay.style.display = 'block';
     setTimeout(() => (overlay.style.opacity = '1'), 10);
 
@@ -53,21 +98,16 @@ vehiculos.forEach(v => {
     v.style.left = `${startX}px`;
     v.style.top = `${startY}px`;
     v.style.transformOrigin = 'center center';
-
     void v.offsetWidth;
-
-    // Movimiento y zoom hacia la izquierda
     v.style.left = '5%';
     v.style.top = '50%';
     v.style.transform = 'translateY(-50%) scale(2)';
 
-    // --- Buscar datos del vehículo en el JSON ---
-    const nombreVehiculo = img.alt.toLowerCase();
+    const nombreVehiculo = img.alt.toLowerCase().trim();
     const info = dataVehiculos.find(
       item => item.tipo.toLowerCase() === nombreVehiculo
     );
 
-    // Si no encuentra coincidencia, usar valores por defecto
     const vehiculoInfo = info || {
       nombre: nombreVehiculo,
       descripcion: "Información no disponible.",
@@ -77,16 +117,14 @@ vehiculos.forEach(v => {
       alcance: 0
     };
 
-    // --- INFO DIV ---
     const scale = 2;
     const imgWidth = img.offsetWidth * scale;
 
     infoDiv.style.top = `50%`;
-    infoDiv.style.left = `${5 + imgWidth / campo.offsetWidth * 100}%`;
+    infoDiv.style.left = `${5 + (imgWidth / campo.offsetWidth) * 100}%`;
     infoDiv.style.transform = 'translateY(-50%) scale(0)';
     infoDiv.style.display = 'block';
 
-    // Contenido con datos del JSON
     infoDiv.innerHTML = `
       <h2>${vehiculoInfo.nombre}</h2>
       <p>${vehiculoInfo.descripcion}</p>
@@ -96,18 +134,15 @@ vehiculos.forEach(v => {
       <p><strong>Alcance:</strong> ${vehiculoInfo.alcance}</p>
     `;
 
-    // Animación de aparición
     setTimeout(() => {
       infoDiv.style.transform = 'translateY(-50%) scale(1)';
     }, 50);
   });
 });
 
-// --- Evento de doble click para cerrar ---
 campo.addEventListener('dblclick', () => {
   if (imagenSeleccionada) {
     const img = imagenSeleccionada.querySelector('img');
-
     img.classList.remove('activa');
 
     imagenSeleccionada.style.transition = 'all 0.6s ease';
@@ -117,17 +152,11 @@ campo.addEventListener('dblclick', () => {
     imagenSeleccionada.style.position = '';
     imagenSeleccionada.style.zIndex = '';
 
-    // Ocultar overlay
     overlay.style.opacity = '0';
-    setTimeout(() => {
-      overlay.style.display = 'none';
-    }, 400);
+    setTimeout(() => (overlay.style.display = 'none'), 400);
 
-    // Ocultar info con animación inversa
     infoDiv.style.transform = 'translateY(-50%) scale(0)';
-    setTimeout(() => {
-      infoDiv.style.display = 'none';
-    }, 400);
+    setTimeout(() => (infoDiv.style.display = 'none'), 400);
 
     imagenSeleccionada = null;
     zoomActivo = false;
@@ -137,20 +166,17 @@ campo.addEventListener('dblclick', () => {
 const audio = document.getElementById('backgroundAudio');
 const soundToggle = document.getElementById('soundToggle');
 
-// Ajusta volumen de ambiente
 audio.volume = 0.4;
 
 soundToggle.addEventListener('click', () => {
   if (audio.paused) {
-    // 🔊 Activar sonido ambiente
     audio.play();
-    soundToggle.textContent = '🔊 Sound On';
+    soundToggle.textContent = '🔊 Sonido Activado';
     soundToggle.classList.remove('muted');
     soundToggle.classList.add('active');
   } else {
-    // 🔇 Apagar sonido ambiente
     audio.pause();
-    soundToggle.textContent = '🔇 Mute';
+    soundToggle.textContent = '🔇 Silenciado';
     soundToggle.classList.remove('active');
     soundToggle.classList.add('muted');
   }

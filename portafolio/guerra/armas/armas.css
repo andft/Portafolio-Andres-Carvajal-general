@@ -15,7 +15,6 @@ body, html {
     font-family: 'Press Start 2P', cursive;
 }
 
-/* 🔊 Botón de sonido */
 #soundToggle {
   position: fixed;
   top: 20px;
@@ -62,7 +61,6 @@ body, html {
     width: 100vw;
 }
 
-/* Lista lateral */
 .lista-armas {
     width: 400px;
     background-image: url(./src/img/fondo1.png);
@@ -87,7 +85,6 @@ body, html {
     text-shadow: 0 0 8px rgba(255, 210, 92, 0.4);
 }
 
-/* Botones de armas */
 .botones-armas {
     display: flex;
     flex-direction: column;
@@ -127,8 +124,7 @@ body, html {
     transform: scale(0.5.11);
     filter: drop-shadow(0 0 10px rgba(255,210,92,0.5));
 }
-e
-/* Cuando está seleccionada */
+
 .arma-btn.activo {
     background: rgba(255, 210, 92, 0.15);
     border: 2px solid #ffd25c;
@@ -136,12 +132,11 @@ e
     transform: scale(1.08);
 }
 
-/* Vista principal */
 .vista-arma {
     background-image: url(./src/img/fondo2.png);
-      background-size: cover;         /* Ajusta la imagen para cubrir toda la pantalla */
-  background-position: center;    /* Centra la imagen */
-  background-repeat: no-repeat; /* Mantiene el fondo fijo al hacer scroll */
+      background-size: cover;  
+  background-position: center;   
+  background-repeat: no-repeat; 
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -188,7 +183,7 @@ e
   position: fixed;
   top: 20px;
   left: 20px;
-  background-color: #8B0000; /* rojo oscuro estilo WW1 */
+  background-color: #8B0000; 
   color: #fff;
   font-family: 'Press Start 2P', monospace;
   font-size: 14px;

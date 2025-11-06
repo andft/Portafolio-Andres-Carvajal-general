@@ -41,7 +41,6 @@ const armas = {
     }
 };
 
-// Selección de elementos
 const botones = document.querySelectorAll(".arma-btn");
 const imagenArma = document.getElementById("imagen-arma");
 const nombreArma = document.getElementById("nombre-arma");
@@ -51,12 +50,10 @@ const dañoArma = document.getElementById("daño-arma");
 const alcanceArma = document.getElementById("alcance-arma");
 
 
-// Función para actualizar el arma
 function mostrarArma(clave) {
     const arma = armas[clave];
     if (!arma) return console.error(`No se encontró información para: ${clave}`);
 
-    // Suave transición con animación
     imagenArma.classList.add("fade-out");
     nombreArma.classList.add("fade-out");
     descripcionArma.classList.add("fade-out");
@@ -77,7 +74,6 @@ alcanceArma.textContent = arma.alcance;
     }, 300);
 }
 
-// Evento de clic en cada botón
 botones.forEach(btn => {
     btn.addEventListener("click", () => {
         botones.forEach(b => b.classList.remove("activo"));
@@ -86,28 +82,25 @@ botones.forEach(btn => {
     });
 });
 
-// Mostrar primera arma por defecto
 if (botones.length > 0) {
     botones[0].classList.add("activo");
     mostrarArma(botones[0].dataset.arma);
 }
 
-// 🔊 Control de sonido de ambiente
 const audio = document.getElementById('backgroundAudio');
 const soundToggle = document.getElementById('soundToggle');
 
-// volumen moderado
 audio.volume = 0.4;
 
 soundToggle.addEventListener('click', () => {
   if (audio.paused) {
     audio.play();
-    soundToggle.textContent = '🔊 Sound On';
+    soundToggle.textContent = '🔊 Sonido Activado';
     soundToggle.classList.remove('muted');
     soundToggle.classList.add('active');
   } else {
     audio.pause();
-    soundToggle.textContent = '🔇 Mute';
+    soundToggle.textContent = '🔇 Silenciado';
     soundToggle.classList.remove('active');
     soundToggle.classList.add('muted');
   }

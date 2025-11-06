@@ -1,4 +1,4 @@
-    // step 1: get DOM
+
     let nextDom = document.getElementById('next');
     let prevDom = document.getElementById('prev');
 
@@ -10,7 +10,7 @@
 
     thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
 
-    // Solo cambiará con clic
+
     nextDom.onclick = function () {
         showSlider('next');
     }
@@ -33,30 +33,27 @@
             carouselDom.classList.add('prev');
         }
 
-        // Tiempo para quitar animación visual (ajústalo si tienes animaciones CSS)
         setTimeout(() => {
             carouselDom.classList.remove('next');
             carouselDom.classList.remove('prev');
-        }, 1000); // 1 segundo
+        }, 1000); 
     }
 
     const audio = document.getElementById('backgroundAudio');
     const soundToggle = document.getElementById('soundToggle');
 
-    // Ajusta volumen de ambiente
+
     audio.volume = 0.4;
 
     soundToggle.addEventListener('click', () => {
     if (audio.paused) {
-        // 🔊 Activar sonido ambiente
         audio.play();
-        soundToggle.textContent = '🔊 Sound On';
+        soundToggle.textContent = '🔊 Sonido Activado';
         soundToggle.classList.remove('muted');
         soundToggle.classList.add('active');
     } else {
-        // 🔇 Apagar sonido ambiente
         audio.pause();
-        soundToggle.textContent = '🔇 Mute';
+        soundToggle.textContent = '🔇 Silenciado';
         soundToggle.classList.remove('active');
         soundToggle.classList.add('muted');
     }
