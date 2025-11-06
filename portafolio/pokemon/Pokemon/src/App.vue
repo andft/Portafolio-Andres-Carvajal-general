@@ -10,33 +10,40 @@
         <h2>Pokemon</h2>
       </div>
       <div class="busqueda">
-        <div>Inicio</div>
-        <div>
-          <input
-            v-model="nombre"
-            type="text"
-            placeholder="Busca tu pokemon"
-            id="pokemon"
+        <input
+          v-model="nombre"
+          type="text"
+          placeholder="Busca tu pokemon"
+          id="pokemon"
+        />
+        <button @click="buscarPokemon" class="input-img">
+          <img
+            :src="'https://cdn-icons-png.flaticon.com/512/622/622669.png'"
+            :alt="imgLupa"
           />
-   <button @click="buscarPokemon" class="input-img">
-  <img :src="'https://cdn-icons-png.flaticon.com/512/622/622669.png'" :alt="imgLupa" />
-</button>
-        </div>
+        </button>
       </div>
     </nav>
 
     <section>
       <div
         class="infoPokemon"
-        v-if="pokemonData"
+        v-if="pokemonData && pokemonData.types && pokemonData.types.length"
         :style="{
-          border: '6px solid ' + generarColorFondo(pokemonData.types),
-          borderImage: generarColorFondo(pokemonData.types),
+          border: '6px solid transparent',
+          borderImageSource: generarColorFondo(pokemonData.types),
           borderImageSlice: 1,
         }"
       >
         <div class="imagen">
-          <div class="habitad" :style="{ 'background-image': `url(${obtenerTipo(pokemonData.types[0].type.name).fondo})` }">
+          <div
+            class="habitad"
+            :style="{
+              'background-image': `url(${
+                obtenerTipo(pokemonData.types[0].type.name).fondo
+              })`,
+            }"
+          >
             <img
               :src="pokemonData.sprites.other['official-artwork'].front_default"
               alt="pokemon"
@@ -98,7 +105,7 @@
               <div
                 class="relleno-animado"
                 :style="{
-                  width: stat.base_stat + '%',
+                  width: (stat.base_stat / 255) * 100 + '%',
                   background: `linear-gradient(270deg, ${
                     obtenerTipo(pokemonData.types[0].type.name).color
                   }, #ffffff, ${
@@ -207,33 +214,33 @@ function obtenerTipo(type) {
   };
 
   const fondosTipo = {
-  steel: new URL('./assets/fondos/steel.png', import.meta.url).href,
-  water: new URL('./assets/fondos/water.png', import.meta.url).href,
-  bug: new URL('./assets/fondos/bug.png', import.meta.url).href,
-  dragon: new URL('./assets/fondos/dragon.png', import.meta.url).href,
-  electric: new URL('./assets/fondos/electric.png', import.meta.url).href,
-  ghost: new URL('./assets/fondos/ghost.png', import.meta.url).href,
-  fire: new URL('./assets/fondos/fire.png', import.meta.url).href,
-  fairy: new URL('./assets/fondos/fairy.png', import.meta.url).href,
-  ice: new URL('./assets/fondos/ice.png', import.meta.url).href,
-  fighting: new URL('./assets/fondos/fighting.png', import.meta.url).href,
-  default: new URL('./assets/fondos/normal.png', import.meta.url).href,
-  grass: new URL('./assets/fondos/grass.png', import.meta.url).href,
-  psychic: new URL('./assets/fondos/psychic.png', import.meta.url).href,
-  rock: new URL('./assets/fondos/rock.png', import.meta.url).href,
-  dark: new URL('./assets/fondos/dark.png', import.meta.url).href,
-  ground: new URL('./assets/fondos/ground.png', import.meta.url).href,
-  poison: new URL('./assets/fondos/poison.png', import.meta.url).href,
-  flying: new URL('./assets/fondos/flying.png', import.meta.url).href,
-  default: new URL('./assets/fondos/default.png', import.meta.url).href,
-};
+    steel: new URL("./assets/fondos/steel.png", import.meta.url).href,
+    water: new URL("./assets/fondos/water.png", import.meta.url).href,
+    bug: new URL("./assets/fondos/bug.png", import.meta.url).href,
+    dragon: new URL("./assets/fondos/dragon.png", import.meta.url).href,
+    electric: new URL("./assets/fondos/electric.png", import.meta.url).href,
+    ghost: new URL("./assets/fondos/ghost.png", import.meta.url).href,
+    fire: new URL("./assets/fondos/fire.png", import.meta.url).href,
+    fairy: new URL("./assets/fondos/fairy.png", import.meta.url).href,
+    ice: new URL("./assets/fondos/ice.png", import.meta.url).href,
+    fighting: new URL("./assets/fondos/fighting.png", import.meta.url).href,
+    default: new URL("./assets/fondos/normal.png", import.meta.url).href,
+    grass: new URL("./assets/fondos/grass.png", import.meta.url).href,
+    psychic: new URL("./assets/fondos/psychic.png", import.meta.url).href,
+    rock: new URL("./assets/fondos/rock.png", import.meta.url).href,
+    dark: new URL("./assets/fondos/dark.png", import.meta.url).href,
+    ground: new URL("./assets/fondos/ground.png", import.meta.url).href,
+    poison: new URL("./assets/fondos/poison.png", import.meta.url).href,
+    flying: new URL("./assets/fondos/flying.png", import.meta.url).href,
+    default: new URL("./assets/fondos/default.png", import.meta.url).href,
+  };
 
   const tipo = type.toLowerCase();
 
   return {
     imagen: imagenesTipo[tipo] || imagenesTipo.default,
     color: coloresTipo[tipo] || coloresTipo.default,
-    fondo: fondosTipo[tipo] || fondosTipo.default
+    fondo: fondosTipo[tipo] || fondosTipo.default,
   };
 }
 
@@ -241,7 +248,7 @@ function generarColorFondo(types) {
   const colores = types.map((t) => obtenerTipo(t.type.name).color);
 
   if (colores.length === 1) {
-    return colores[0];
+    return `linear-gradient(135deg, ${colores[0]}, ${colores[0]})`;
   }
 
   const porcentajePaso = 100 / (colores.length - 1);
@@ -279,7 +286,7 @@ nav {
   padding: 15px 40px;
   background-color: #2d2d2d;
   color: white;
-  width: 99vw;
+  width: 100vw;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
 }
@@ -290,7 +297,7 @@ p {
 
 h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: normal;
 }
 
@@ -303,24 +310,28 @@ h2 {
 .busqueda {
   display: flex;
   align-items: center;
-  gap: 35px;
+  gap: 10px;
   font-size: 16px;
 }
 
+button {
+  border-radius: 5px;
+  border: none;
+  height: 34px;
+  width: 35px;
+  font-size: 14px;
+  padding: 2px 10px;
+}
+
 .input-img {
-  width: 30px;
-  height: 30px;
   background-repeat: no-repeat;
   background-position: 10px center;
   background-size: 10px;
-  padding-left: 40px;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-right: 15px;
+  border-radius: 5px;
 }
 
-.input-img img{
-  width: 25px;
+.input-img img {
+  width: 15px;
 }
 
 input {
@@ -329,12 +340,13 @@ input {
   height: 30px;
   width: 200px;
   font-size: 14px;
+  padding: 2px 10px;
 }
 
 section {
   background-color: #d4d4d8;
   width: 100vw;
-  height: calc(100vh - 80px);
+  height: 90vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -373,7 +385,7 @@ section {
 .imagen h2 {
   color: white;
   font-family: Arial, sans-serif;
-  font-size: 60px;
+  font-size: 50px;
   font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -456,7 +468,7 @@ hr {
 .stat {
   display: grid;
   gap: 3px;
-  width: 25vw;
+  width: 20vw;
   text-transform: capitalize;
 }
 
@@ -481,6 +493,287 @@ hr {
   }
   100% {
     background-position: 100% 50%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .infoPokemon {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    width: 90%;
+    text-align: center;
+    border-radius: 16px;
+    gap: 25px;
+    padding-bottom: 20px;
+  }
+
+  .imagen {
+    padding: 35px 20px;
+    gap: 20px;
+  }
+
+  .imagen img {
+    width: 260px;
+    height: 260px;
+  }
+
+  .imagen h2 {
+    font-size: 42px;
+    margin-top: 10px;
+  }
+
+  .datos {
+    margin: 15px auto;
+    width: 90%;
+  }
+
+  .habilidades {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px auto;
+    width: 90%;
+  }
+
+  .habilidades h3 {
+    flex-basis: 100%;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .stat {
+    margin: 15px auto;
+    gap: 15px;
+    width: 30%;
+  }
+
+  .tipos {
+    margin: 15px auto;
+    gap: 15px;
+    width: 90%;
+  }
+
+  .tipo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 12px;
+  }
+
+  .tipo img {
+    width: 36px;
+    height: 36px;
+  }
+
+  .separador {
+    display: none;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  section {
+    height: auto;
+    padding: 40px 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 20px;
+  }
+
+  .busqueda {
+    width: 100%;
+    justify-content: center;
+  }
+
+  input {
+    width: 90%;
+  }
+
+  .infoPokemon {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    width: 90%;
+    text-align: center;
+    border-radius: 14px;
+    gap: 20px;
+    padding-bottom: 20px;
+  }
+
+  .imagen {
+    padding: 30px 10px;
+    gap: 15px;
+  }
+
+  .imagen img {
+    width: 200px;
+    height: 200px;
+  }
+
+  .imagen h2 {
+    font-size: 32px;
+    margin-top: 8px;
+  }
+
+  .datos {
+    margin: 10px auto;
+    width: 95%;
+    gap: 5px;
+  }
+
+  .habilidades {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px auto;
+    width: 90%;
+  }
+
+  .habilidades h3 {
+    flex-basis: 100%;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .stat {
+    margin: 10px auto;
+    width: 30%;
+    gap: 10px;
+  }
+
+  .tipos {
+    margin: 10px auto;
+    width: 100%;
+    gap: 10px;
+  }
+
+  .tipo {
+    padding: 6px 10px;
+    gap: 8px;
+  }
+
+  .tipo img {
+    width: 30px;
+    height: 30px;
+  }
+
+  h3 {
+    font-size: 18px;
+    margin-bottom: 6px;
+  }
+
+  .separador {
+    display: none;
+  }
+
+  section {
+    height: auto;
+    padding: 30px 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  nav {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 15px;
+  }
+
+  .nombrePag h2 {
+    font-size: 18px;
+  }
+
+  input {
+    width: 80%;
+    font-size: 13px;
+  }
+
+  button {
+    width: 30px;
+    height: 30px;
+  }
+
+  .infoPokemon {
+    width: 90%;
+    gap: 15px;
+    border-radius: 12px;
+    padding: 15px 0 25px 0;
+  }
+
+  .imagen {
+    padding: 20px 10px;
+    gap: 10px;
+  }
+
+  .imagen img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .imagen h2 {
+    font-size: 24px;
+  }
+
+  .datos {
+    font-size: 14px;
+    width: 90%;
+  }
+
+  .habilidades {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 15px auto;
+    width: 90%;
+  }
+
+  .habilidades h3 {
+    flex-basis: 100%;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .stat {
+    width: 60%;
+    margin: 8px 0;
+    gap: 10px;
+  }
+
+  .tipos {
+    width: 95%;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tipo {
+    padding: 4px 8px;
+    gap: 6px;
+  }
+
+  .tipo img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tipos p,
+  .info p {
+    font-size: 13px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  section {
+    padding: 20px 0;
   }
 }
 </style>
