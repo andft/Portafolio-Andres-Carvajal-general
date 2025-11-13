@@ -105,13 +105,6 @@ const historial = ref([]);
 const claseResultado = ref("");
 const imagenEstado = ref("");
 
-const imagenes = {
-  Sobresaliente: "https://cdn-icons-png.flaticon.com/512/616/616408.png",
-  Aprobado: "https://cdn-icons-png.flaticon.com/512/845/845646.png",
-  Aceptable: "https://cdn-icons-png.flaticon.com/512/1828/1828961.png",
-  Reprobado: "https://cdn-icons-png.flaticon.com/512/1828/1828843.png",
-};
-
 function registrarEstudiante() {
   if (!nombre.value.trim()) {
     alert("Por favor, ingresa el nombre del estudiante.");
@@ -155,8 +148,6 @@ function registrarEstudiante() {
   else if (estado === "Aceptable") claseResultado.value = "aceptable";
   else if (estado === "Reprobado") claseResultado.value = "reprobado";
   else claseResultado.value = "";
-
-  imagenEstado.value = imagenes[estado] || "";
 
   historial.value.push({
     nombre: nombre.value,
